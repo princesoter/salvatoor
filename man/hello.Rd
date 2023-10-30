@@ -53,6 +53,10 @@ MEDIA: EXPECTED VALUE = media_campionaria
 
 MEDIA: VARIANZA = s^2 / n
 
+EXPECTED VALUE di ax + b  = a + b * E(x) 
+
+VARIANZA di ax + b = a^2 s^2
+
 BERNOULLI: media = p ;
 varianza = p * (1-p)
 
