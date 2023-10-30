@@ -37,6 +37,8 @@ Analisi di due V.A.
 
 VAR = (1/(n-1)) * E(xi - media)^2 = (1/(n-1))*(E(xi^2) - (n * media^2))
 
+VAR2 = (n/(n-1)) * (sum(p * mi) - media^2) 
+
 COV = (1/n-1)*(E((xi - mediax) * (yi - mediay)))
 
 CORxy = COVxy/(sx * sy)
