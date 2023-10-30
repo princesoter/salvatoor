@@ -79,6 +79,23 @@ se = sqrt(sx^2/nx + sy^2/ny)
 DIFFERENZA FRA MEDIE CAMPIONI APPAIATI
 
 se = sqrt((sx^2+sy^2-2*cov) / n
+
+DEFINIZIONI
+
+VARIANZA = media delle distanze degli scarti dalla media al quadrato
+
+DEVIAZIONE STANDARD = distanza media dei dati dalla media 
+
+COVARIANZA = indicatore della direzione di una relazione lineare fra due variabili quantitative
+
+COEFFICIENTE DI CORRELAZIONE = indicatore che misura l intensità della relazione lineare
+
+STIMATORE: funzione di variabili aleatorie utilizzata per fornire previsioni su un carattere ignoto (parametri per stabilire se sono ottimali si considera non distorsione e efficienza)
+
+STANDARD ERROR = indica lo scostamento di una generica stima dal parametro di una popolazione
+
+DIMOSTRAZIONI
+
 somma e media di v.a indipend. identicam. distribuite (i.i.d.)
 
 X1,X2,...,Xn sono v.a. iid come X con valore atteso u(mu) e varianza sigma^2.
