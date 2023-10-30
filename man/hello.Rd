@@ -57,6 +57,8 @@ EXPECTED VALUE di ax + b  = a + b * E(x)
 
 VARIANZA di ax + b = a^2 s^2
 
+VARIANZA di ax + by = a^2*s^2x + b^2*s^2y + 2*a*b*cov_xy
+
 BERNOULLI: media = p ;
 varianza = p * (1-p)
 
@@ -77,4 +79,50 @@ se = sqrt(sx^2/nx + sy^2/ny)
 DIFFERENZA FRA MEDIE CAMPIONI APPAIATI
 
 se = sqrt((sx^2+sy^2-2*cov) / n
+somma e media di v.a indipend. identicam. distribuite (i.i.d.)
+
+X1,X2,...,Xn sono v.a. iid come X con valore atteso u(mu) e varianza sigma^2.
+
+la loro somma e la loro media sono v.a. i cui valori attesi e le cui varianze
+possono essere determinati a partire da u e sigma^2
+
+Somma = X1+...+Xn
+
+-> E(S) = E(X1)+ ... + E(Xn)= n*u
+
+->var(S) = Var(X1)+...+Var(Xn)= n*(sigma^2)
+
+media: X(barra sopra) = (X1+...+Xn)/n = S/n
+
+E(Xbarr)=E(X1/n)+...+E(Xn/n)=n*u/n= u
+
+VAR(Xbarr)=VarX1/n)+...+var(Xn/n)=n*sigma^2/n^2=sigma^2/n
+
+
+valore atteso e varianza di trasformazioni lineari di una VA
+
+data una VA X consideriamo la sua trasf. lineare Y=a+bX
+
+E(Y) = E(a+bX) = a+bE(X)=a+bu
+
+VAR(Y) = var(a+bX)= b^2*sigma^2 = Sd(Y)=|b|*sd(X)=|b|*sigma
+
+facendo riferimento a una va discreta:
+  
+E(Y)=sommatoria((a+bX)*Px(x)) = a+bE(X)=a*bu
+
+VAR(Y)==sommatoria([a+bx-(a+bu)]^2Px(X))=b^2*sigma^2
+
+combinazioni lineari di va
+
+aX+bY
+
+con E(X)=ux, VAR(X)=sigmax^2, E(Y)=uy,VAR(Y)=sigmay^2 e cov(X,Y)=sigmaxy
+
+il valore atteso e la varianza della combinazione lineare:
+  
+  E(aX+bY)=aux+buy
+
+VAR(aX+bY)=a^2*sigmax^2+b^2*sigmay^2-2ab*sigmaxy
+
 }
