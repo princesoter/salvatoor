@@ -5,141 +5,138 @@
 hello()
 }
 \description{
-V. Qualitative nominali -> torta o barre
+stima per intervallo: stimatore puntuale +/- margine di errore
 
-V. Qualitative ordinali -> preferibile barre
+margine di errore = (fattore di affidabilità)(standard error)
 
-V. Quantitative discrete -> aste o fr. cum (anche boxplot)
+fattore affidabilità = 1-alfa 
 
-V. Quantitative continue -> istogramma o ogiva (anche boxplot)
+1-alfa grande -> intervallo più ampio 
 
-Misure di sintesi
+non si può sapere se un intervallo contiene o meno il parametro, si sa che
+estraendo 100 campioni il 1-alfa% conterrà il parametro 
 
-centrali : mediana moda media
+intervallo varianza nota:
 
-non centrali : quartili, decili...
+CI(u) = [x_bar+z(alfa/2)*varianza/radice(n)]
 
-Estremi baffi boxplot:
+funzione: CI.mean()
 
-baffo_sup = q3 + 1.5 * (q3 - q1)
+verifica di ipotesi tra due medie u0<u1:
 
-baffo_inf = q1 - 1.5 * (q3 - q1)
+regione di rifiuto x_bar = u0+z(alfa)*[varianza/radice(n)]
 
-Indici di variabilità = range, range interquartile, var, dev. stand., coeff. di variazione
+p errore secondo tipo: pnorm((x_bar-u1)/var/sqrt(n))
 
-Analisi di due V.A.
+p_value = probabilità di osservare un valore della statistica test estremo
 
-2 qualitative = barre
+p_value = 1-pnorm((x_bar-u0)/var/sqrt(n))
 
-1 qual. e 1 quant. = boxplot
+pvalue>alfa non rifiuto H0
 
-2 quant. = scatter
+test bilaterale: 
 
-VAR = (1/(n-1)) * E(xi - media)^2 = (1/(n-1))*(E(xi^2) - (n * media^2))
+x_bar>/< u0 +/- z(alfa/2)* var/sqrt(n)
 
-VAR2 = (n/(n-1)) * (sum(p * mi) - media^2) 
+differenza tra medie: 
 
-COEFF_VARIAZIONE = s / media
+regione di rifiuto var non note: 
 
-COV = (1/n-1)*(E((xi - mediax) * (yi - mediay)))
+x-y>/< mu0+t(alfa,DF)*se(x-y)
 
-CORxy = COVxy/(sx * sy)
+se(x-y) = sqrt(Sx^2/nx+Sy^2/ny)
 
-SOMMA:EXPECTED VALUE = n * media_campionaria
+funzioni: TESTmean()-> ricorda alternative: "greater","less","two.sided"
 
-SOMMA:VARIANZA = n * varianza_campionaria
+TEST.diffmean()-> ricorda type: "independent","paired"
 
-MEDIA: EXPECTED VALUE = media_campionaria
+test sulla proporzione:
 
-MEDIA: VARIANZA = s^2 / n
+H1 = p<p0
 
-EXPECTED VALUE di ax + b  = a + b * E(x) 
+rifiuto se p_hat<p0-z(alfa)*sqrt(p0(1-p0)/n)
 
-VARIANZA di ax + b = a^2 s^2
+p value = P(z<(p_hat-p0)/sqrt(p0(1-p0)/n))
 
-VARIANZA di ax + by = a^2*s^2x + b^2*s^2y + 2*a*b*cov_xy
+H1 = p>p0 
 
-BERNOULLI: media = p ;
-varianza = p * (1-p)
+rifiuto se p_hat>p0-z(alfa)*sqrt(p0(1-p0)/n)
 
-Standard error = sqrt(sd^2/n)
+p value = P(z>(p_hat-p0)/sqrt(p0(1-p0)/n))
 
-DIFFERENZA FRA MEDIE CAMPIONI INDIPENDENTI
+H1 : p=/=p0
 
-s_pool = ((nx-1)*sx^2+(ny-1)*sy^2) / (nx+ny-2)
+p-p0>z(alfa/2)*ME(p)
 
-Se hanno varianza uguale:
+differenza tra proporzioni
 
-se = sqrt(s_pool^2/nx + s_pool^2/ny)
+TEST.prop
 
-Se hanno varianza diversa:
+TEST.diffprop
 
-se = sqrt(sx^2/nx + sy^2/ny)
+test chi-quadro
 
-DIFFERENZA FRA MEDIE CAMPIONI APPAIATI
+chisq.test(x,y)
 
-se = sqrt((sx^2+sy^2-2*cov) / n
+REGRESSIONE SEMPLICE
 
-DEFINIZIONI
+SSE = sommatoria((yi-y_hati)^2)
 
-VARIANZA = media delle distanze degli scarti dalla media al quadrato
+somma degli errori al quadrato, yi = osservazione campionaria
 
-DEVIAZIONE STANDARD = distanza media dei dati dalla media 
+Sxy = Rxy*Sx*Sy
 
-COVARIANZA = indicatore della direzione di una relazione lineare fra due variabili quantitative
+somma dei quadrati totali, deviazioni dei valori osservati dalla loro media
 
-COEFFICIENTE DI CORRELAZIONE = indicatore che misura l intensità della relazione lineare
+SST = sommatoria((yi-y_bar)^2)= Sy^2(n-1)
 
-STIMATORE: funzione di variabili aleatorie utilizzata per fornire previsioni su un carattere ignoto (parametri per stabilire se sono ottimali si considera non distorsione e efficienza)
+somma dei quadrati della regressione, somma delle deviazioni al q delle previsioni dalla media 
 
-STANDARD ERROR = indica lo scostamento di una generica stima dal parametro di una popolazione
+variabile dipendente 
 
-DIMOSTRAZIONI
+SSR = sommatoria((yi-y-bar)^2)
 
-somma e media di v.a indipend. identicam. distribuite (i.i.d.)
+SST = SSE+SSR
+R^2= 1 - SSE/SST, R^2= rxy^2
+SSR = (n-1)b1^2*sx^2
 
-X1,X2,...,Xn sono v.a. iid come X con valore atteso u(mu) e varianza sigma^2.
+assunzioni deboli:
+1) linearità E(B1)=B1
+2) omoschedasticità VAR(Yi)=(sigma errore)^2
+3) errori non correlati cor(Yi,Yh) = 0
 
-la loro somma e la loro media sono v.a. i cui valori attesi e le cui varianze
-possono essere determinati a partire da u e sigma^2
+Var(B1) = (sigma errore)^2/((n-1)sx^2)
 
-Somma = X1+...+Xn
+var(B0) = sigma errore^2*(1/n + x_bar^2/((n-1)Sx^2))
 
--> E(S) = E(X1)+ ... + E(Xn)= n*u
+Serrore^2 = MSE = SSE/(n-2)
 
-->var(S) = Var(X1)+...+Var(Xn)= n*(sigma^2)
+ipotesi forti: l'errore ha distribuzione normale'
 
-media: X(barra sopra) = (X1+...+Xn)/n = S/n
+se(B1)= sigmaER*sqrt(1/((n-1)Sx^2))
 
-E(Xbarr)=E(X1/n)+...+E(Xn/n)=n*u/n= u
+intervallo di confidenza B1:
 
-VAR(Xbarr)=VarX1/n)+...+var(Xn/n)=n*sigma^2/n^2=sigma^2/n
+CI(1-alfa)(B1)=B1+/-t(n-1,alfa/2)*se(B1)
 
+t asterisco= (b1-B1(0))/se(B1)
 
-valore atteso e varianza di trasformazioni lineari di una VA
+se H1:
 
-data una VA X consideriamo la sua trasf. lineare Y=a+bX
+B1<B1(0) ->-t(n-2, alfa) > t asterisco
 
-E(Y) = E(a+bX) = a+bE(X)=a+bu
+B1=/=B1(0) -> t(n-2,alfa/2)
 
-VAR(Y) = var(a+bX)= b^2*sigma^2 = Sd(Y)=|b|*sd(X)=|b|*sigma
+B1>B1(0) -> t asterisco >t(n-2, alfa)
 
-facendo riferimento a una va discreta:
-  
-E(Y)=sommatoria((a+bX)*Px(x)) = a+bE(X)=a*bu
+lm() previsione 
 
-VAR(Y)==sommatoria([a+bx-(a+bu)]^2Px(X))=b^2*sigma^2
+confint() -> intervallo confidenza B1 e B0 
 
-combinazioni lineari di va
+predict() -> intervallo di confidenza media e intervallo di previsione 
 
-aX+bY
+predict(lm, data.frame(), interval("confidence"/"prediction"), conf.level)
 
-con E(X)=ux, VAR(X)=sigmax^2, E(Y)=uy,VAR(Y)=sigmay^2 e cov(X,Y)=sigmaxy
-
-il valore atteso e la varianza della combinazione lineare:
-  
-  E(aX+bY)=aux+buy
-
-VAR(aX+bY)=a^2*sigmax^2+b^2*sigmay^2-2ab*sigmaxy
-
+analisi dei residui: 
+plot(funzione lm, which) which = 1,2,3,4,5
 }
