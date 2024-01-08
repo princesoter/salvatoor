@@ -212,6 +212,8 @@ b0 = y_bar - b1 * x_bar
 
 R2 = SSR/SST = 1-SSE/SST
 
+R2_adj = 1-SSE*(n-1)/(SST*(n-k-1))
+
 SST = (n-1)*s2y
 
 SSR = SST*b1^2*s2x
@@ -234,9 +236,26 @@ INTERVALLO DI CONFIDENZA
 
 yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1/n+(xg-x_bar)/((n-1)*s2x)))
 
+confint(lm,level)
+
 INTERVALLO DI PREVISIONE
 
 yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1+1/n+(xg-x_bar)/((n-1)*s2x)))
+
+predict(lm, newdata, interval(prediction/confidence=, conf.level)
+
+ANALISI RESIDUI: plot(lm, (1/2/3/4)
+
+MODELLO DI REGRESSIONE MULTIPLA
+
+s2e = SSE/(n-k-1)
+
+se = sqrt(s2e)
+
+
+
+
+
 
 
 
