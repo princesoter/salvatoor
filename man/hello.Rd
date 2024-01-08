@@ -226,7 +226,20 @@ se_b1= sqrt(s2e/((n-1)*s2x))
 
 se_b0= sqrt(s2e*(1/n + x_bar^2/((n-2)*s2x)))
 
-STATISTICA TEST: z=(b1-b0)
+STATISTICA TEST: z=(b1-b0)/se_b1 
+
+CI= b1 +/- qt(alfa/2, n-2) * se_b1
+
+INTERVALLO DI CONFIDENZA
+
+yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1/n+(xg-x_bar)/((n-1)*s2x)))
+
+INTERVALLO DI PREVISIONE
+
+yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1+1/n+(xg-x_bar)/((n-1)*s2x)))
+
+
+
 
 
 
