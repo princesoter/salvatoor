@@ -5,265 +5,286 @@
 hello()
 }
 \description{
-stima per intervallo: stimatore puntuale +/- margine di errore
+When describing a graph:
 
-margine di errore = (fattore di affidabilità)(standard error)
+Comment on: central tendency measure, non-central position measures,
+dispersion, shape of distribution
 
-fattore affidabilità = 1-alfa 
+Summary measures:
 
-1-alfa grande -> intervallo più ampio 
+Variance:
 
-non si può sapere se un intervallo contiene o meno il parametro, si sa che
-estraendo 100 campioni il 1-alfa% conterrà il parametro 
+Population: 1/N sigma (xi - miu)^2
 
-intervallo varianza nota:
+Sample: 1/(n-1) sigma (xi - xbar)^2 = n/( n-1) * (sigma (xi^2)/n) - xbar^2
 
-CI(u) = [x_bar+z(alfa/2)*varianza/radice(n)]
+CV: s / |xbar|
 
-funzione: CI.mean()
+Cross products: (xi - xbar)* (yi - ybar)
 
-verifica di ipotesi tra due medie u0<u1:
+Covariance:
 
-regione di rifiuto x_bar = u0+z(alfa)*[varianza/radice(n)]
+Population: 1/N sigma(xi - xbar)* (yi - ybar)
 
-p errore secondo tipo: pnorm((x_bar-u1)/var/sqrt(n))
+Sample s_xy: 1/(n-1) *sigma(xi - xbar)* (yi - ybar) = sigma (xi*yi - n*xbar*ybar)/(n-1)
 
-p_value = probabilità di osservare un valore della statistica test estremo
+Linear correlation coefficient rxy = s_xy/ s_x * s_y
 
-p_value = 1-pnorm((x_bar-u0)/var/sqrt(n))
+Pearson’s correlation coefficient:
 
-pvalue>alfa non rifiuto H0
+n <-
 
-test bilaterale: 
+sum.x <-
 
-x_bar>/< u0 +/- z(alfa/2)* var/sqrt(n)
+sum.y < -
 
-differenza tra medie: 
+sum.x2 <-
 
-regione di rifiuto var non note: 
+sum.y2 <-
 
-x-y>/< mu0+t(alfa,DF)*se(x-y)
+sum.prod <-xbar <- sum.x/n
 
-se(x-y) = sqrt(Sx^2/nx+Sy^2/ny)
+ybar <- sum.y/n
 
-funzioni: TESTmean()-> ricorda alternative: "greater","less","two.sided"
+mean.x2 <- sum.x2/n
 
-TEST.diffmean()-> ricorda type: "independent","paired"
+mean.y2 <- sum.y2/n
 
-test sulla proporzione:
+s2.x <- (n/(n-1)) *(mean.x2-xbar ^2)
 
-H1 = p<p0
+s2.y <- (n/(n-1)) *(mean.y2-ybar ^2)
 
-rifiuto se p_hat<p0-z(alfa)*sqrt(p0(1-p0)/n)
+cov.xy <- sum.prod/(n-1)
 
-p value = P(z<(p_hat-p0)/sqrt(p0(1-p0)/n))
+r.xy <- cov.xy/(sqrt(s2.x*s2.y))
 
-H1 = p>p0 
+r.xy
 
-rifiuto se p_hat>p0-z(alfa)*sqrt(p0(1-p0)/n)
+OR
 
-p value = P(z>(p_hat-p0)/sqrt(p0(1-p0)/n))
+sum.xi <- 21101
 
-H1 : p=/=p0
+sum.yi <- 3520
 
-p-p0>z(alfa/2)*ME(p)
+sum.x2i <- 8139025
 
-differenza tra proporzioni
+sum.y2i <- 103316
 
-TEST.prop
+sum.xi.xbar.yi.ybar <- 174063.4
 
-TEST.diffprop
+n <- 159
 
-test chi-quadro
+x.bar <- sum.xi/n
 
-chisq.test(x,y)
+y.bar <- sum.yi/n
 
-REGRESSIONE SEMPLICE
+s.x <- sqrt((n/(n-1))*((sum.x2i/n)-x.bar^2)) #sd Clicks
 
-SSE = sommatoria((yi-y_hati)^2)
+s.xs.y <- sqrt((n/(n-1))*((sum.y2i/n)-y.bar^2)) #sd Reactions
 
-somma degli errori al quadrato, yi = osservazione campionaria
+s.y
 
-Sxy = Rxy*Sx*Sy
+r.xy <- s.xy/(s.x*s.y)
 
-somma dei quadrati totali, deviazioni dei valori osservati dalla loro media
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-SST = sommatoria((yi-y_bar)^2)= Sy^2(n-1)
+Sample Variance
 
-somma dei quadrati della regressione, somma delle deviazioni al q delle previsioni dalla media 
+n <-
 
-variabile dipendente 
+mean.x.sqrd <-
 
-SSR = sommatoria((yi-y-bar)^2)
+xbar <-
 
-SST = SSE+SSR
-R^2= 1 - SSE/SST, R^2= rxy^2
-SSR = (n-1)b1^2*sx^2
+s2.x <- (n/(n-1)) *(mean.x.sqrd - (xbar) ^2)
 
-assunzioni deboli:
-1) linearità E(B1)=B1
-2) omoschedasticità VAR(Yi)=(sigma errore)^2
-3) errori non correlati cor(Yi,Yh) = 0
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-Var(B1) = (sigma errore)^2/((n-1)sx^2)
+Covariance
 
-var(B0) = sigma errore^2*(1/n + x_bar^2/((n-1)Sx^2))
+n <-
 
-Serrore^2 = MSE = SSE/(n-2)
+sum.prod <-
 
-ipotesi forti: l'errore ha distribuzione normale'
+sum.prod/(n-1) [sum.prod given]
 
-se(B1)= sigmaER*sqrt(1/((n-1)Sx^2))
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-intervallo di confidenza B1:
+Variance of Joint Distribution (Dependent)
 
-CI(1-alfa)(B1)=B1+/-t(n-1,alfa/2)*se(B1)
+var.x <-
 
-t asterisco= (b1-B1(0))/se(B1)
+var.y <-
 
-se H1:
+r.xy <-
 
-B1<B1(0) ->-t(n-2, alfa) > t asterisco
+cov.xy <- r.xy*sqrt(var.x)*sqrt(var.y)var.jointxy <- var.x + var.y + 2*cov.xy
 
-B1=/=B1(0) -> t(n-2,alfa/2)
+var.jointxy
 
-B1>B1(0) -> t asterisco >t(n-2, alfa)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-lm() previsione 
+Variance of Joint Distribution (Independent)
 
-confint() -> intervallo confidenza B1 e B0 
+var.x <-
 
-predict() -> intervallo di confidenza media e intervallo di previsione 
+var.y <-
 
-predict(lm, data.frame(), interval("confidence"/"prediction"), conf.level)
+var.jointxy <- var.x + var.y
 
-analisi dei residui: 
-plot(funzione lm, which) which = 1,2,3,4,5
+var.jointxy
 
--------------------------------------------------------
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-STIMA PER INTERVALLO 
+Expected value and variance of a linear transformation of a r.v.
 
-VAR NOTA: CI= c(x_bar-z_alfa_2*s/sqrt(n), x_bar+z_alfa_2*s/sqrt(n))
+Proof 1: E(Y)= sigma (a+bx)P(x) = a * sigma P(x) + sigma x * P(x) = a
 
-VAR NON NOTA: CI= c(x_bar-t_alfa_2*se, x_bar+t_alfa_2*se)
++ b*E(x) = a + b*miu
 
-STIMA PER INTERVALLO - PROPORZIONI
+Proof 2: sigma (a+bx - (a+b*miu))^2 * P(x) = sigma (bx - bmiu)^2 =
 
-CI = c(p_hat - z_alfa_2 * sqrt(p_hat*(1-p_hat)/n), p_hat + z_alfa_2 * sqrt(p_hat*(1-p_hat)/n))
+b^2 * sigma (x - miu)^2 * P(x) = b^2Var(x) = b^2 sigma^2
 
-STIMA PER INTERVALLO - DIFFERENZA TRA MEDIE INDIPENDENTI
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-varianze note => SE= sqrt(s2x/nx + s2y/ny) (SI USA QNORM)
+Normal R.V. - Linear Transformation
 
-varianze non note diverse => SE= sqrt(s2x/nx + s2y/ny) (SI USA T STUDENT)
+Y = a + bX becomes N(a + b*miu), b^2sigma^2)
 
-varianze non note uguali => SE= sqrt(s_pool/nx + s_pool/ny) (SI USA T STUDENT)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-STIMA PER INTERVALLO - DIFFERENZA TRA MEDIE APPAIATI
+Standardization of a R.V.
 
-varianze note => SE= sqrt((s2x+s2y-sxy)/n) (SI USA QNORM)
+Z = (X- miu)/ sigma- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-varianze non note => SE= SE= sqrt((s2x+s2y-sxy)/n) (SI USA T STUDENT)
+Consider a linear combination of two r.v. X and Y:
 
-STIMA PER INTERVALLO - DIFFERENZA TRA PROPORZIONI
+Joint normal distribution:
 
-SE = sqrt(px*(1-px)/nx + py*(1-py)/ny)
+(aX + bY) becomes N(a*miux + b*miuy, a^2*sigmax^2 + b^2sigmay^2 + 2abcov.xy)
 
-TEST DI IPOTESI
+In case of independence:
 
-STATISTICA TEST = z_oss * (X_bar - ipotesi)/SE
+(aX + bY) becomes N(a*miux + b*miuy, a^2*sigmax^2 + b^2sigmay^2)
 
-STATISTICA TEST PROP = (p_hat - p_ipotesi)/sqrt(p_ipotesi*(1-p_ipotesi)/n)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-PVALUE (nel caso vogliamo dimostrare <)= pnorm(z_oss) oppure pt(z_oss, n-1)
+Sum and Mean of i.i.d. R.V.
 
-se H0 ipotizza proporzioni uguali => p_hat = (nx*px+ny*py)/(nx+ny)
+Sum becomes N(n*miu, n*sigma^2)
 
-REGIONE DI RIFIUTO= x_bar +/- z_alfa/t_alfa * se
+Mean becomes N(miu, sigma^2 / n)
 
-errore alfa = pnorm(x_bar, nuovo_val, se)
+This is in the case of central limit theorem too, with sufficiently large n.
 
-errore beta = pnorm(x_bar, nuovo_val, se)
+For sufficiently large n, the distributions of the sum and the mean of n r.v. X1, X2, …, Xn
 
-TEST CHI QUADRO
+i.i.d. As a r.x. X can be approximated by the normal distribution, whatever the
 
-STATISTICA TEST = sum[(Oi-Ei)^2/Ei]
+distribution of X
 
-chisq.test(vettore, p=c(vettore con prob))
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-pchisq e qchisq
+Standard errors
 
-TEST CHI QUADRO INDIPENDENZA (H0: indipendenti)
+The standard errors are estimates of the standard deviations of the
 
-costruisco Ekj = (k*j)/tot
+sample means based on sample sizes drawn.
 
-sum[(Ekj - Okj)^2/Ekj]
+The standard error can be interpreted as the expected deviation of a
 
-RR = qchisq(p, (k-1)*(j-1))
+generic estimate from the difference between the two populations'means. My - My
 
-PVALUE = 1-pchisq
+The standard errors give us an idea of how much the estimates might
 
-MODELLO DI REGRESSIONE LINEARE
+vary, but they do not allow us to definitively conclude that one estimate
 
-b1 = sxy/s2x = rxy*sy/sx
+(e.g., xˉ\bar{x}xˉ) is closer to or farther from its population mean (μX)
 
-b0 = y_bar - b1 * x_bar
+compared to the other estimate (e.g., yˉ\bar{y}yˉ from μY).
 
-R2 = SSR/SST = 1-SSE/SST
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-R2_adj = 1-SSE*(n-1)/(SST*(n-k-1))
+Standard error - single estimator
 
-SST = (n-1)*s2y
+sqrt(sigma^2)/n)
 
-SSR = SST*b1^2*s2x
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-varianza modello: s2e= SSE/(n-2)
+Standard error - single proportion
 
-var_b1= s2e/((n-1)*s2x)
+sqrt(p*(1-p)/n)
 
-var_b0= s2e*(1/n + x_bar^2/((n-2)*s2x))
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-se_b1= sqrt(s2e/((n-1)*s2x))
+Standard error - paired samples - known (SE) or unknown (se)
 
-se_b0= sqrt(s2e*(1/n + x_bar^2/((n-2)*s2x)))
+n <-
 
-STATISTICA TEST: z=(b1-b0)/se_b1 
+s2.x <-
 
-CI= b1 +/- qt(alfa/2, n-2) * se_b1
+s2.y <-
 
-INTERVALLO DI CONFIDENZA
+s.xy <-
 
-yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1/n+(xg-x_bar)/((n-1)*s2x)))
+se_xminy <- sqrt((s2.x + s2.y - 2*s.xy)/n)
 
-confint(lm,level)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -Standard error - known independent samples
 
-INTERVALLO DI PREVISIONE
+n.x <-
 
-yg -+ qt(alfa/2,n-2)*sqrt(s2e*(1+1/n+(xg-x_bar)/((n-1)*s2x)))
+n.y <-
 
-predict(lm, newdata, interval(prediction/confidence=, conf.level)
+s2.x <-
 
-ANALISI RESIDUI: plot(lm, (1/2/3/4)
+s2.y <-
 
-MODELLO DI REGRESSIONE MULTIPLA
+SE_xminy <- sqrt(s2.x/n.x + s2.y/n.y)
 
-s2e = SSE/(n-k-1)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-se = sqrt(s2e)
+Standard error - unknown independent samples (equal variances)
 
+First calculate S.pool :
 
+n.x <-
 
+n.y <-
 
+s2.x <-
 
+s2.y <-
 
+s.pool <- ((n.x -1) * s2.x + (n.y -1) * s2.y)/(n.x + n.y - 2)
 
+SE_xminy <- sqrt(s.pool/n.x + s.pool/n.y)
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+Standard error - independent samples (different variances)
 
+n.x <-
 
+n.y <-
 
+s2.x <-s2.y <-
 
+se_xminy <- sqrt(s2.x/n.x + s2.y/n.y)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Standard error - difference between proportions (independent)
+
+p.x <-
+
+p.y <-
+
+n.x <-
+
+n.y <-
+
+se_pxminpy <- sqrt(((p.x * (1-p.x))/n.x) + ((p.y * (1-p.y))/n.y))
 
 
 
