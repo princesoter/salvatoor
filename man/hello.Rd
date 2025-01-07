@@ -5,6 +5,262 @@
 hello()
 }
 \description{
+
+
+***CONFIDENCE INTERVALS***
+INTERPRETATIONS
+
+It is not possible to conclude that the parameter belongs to this interval with probability 0.95
+because miu is a constant and the observed interval is not random since it is based on a
+specific sample; therefore miu either belongs or does not belong to the interval, and this is
+unknown since u is unknown.
+
+1 - alpha is the probability that an interval based on a generic sample drawn at random from the
+population contains the parameter.
+
+CI - MEAN KNOWN POPULATION VARIANCE:
+
+CI_(1 - alpha) miu = [xbar -+ z_alpha/2 * sigma / sqrt(n) ]
+
+Z = (xbar - miu) / (sigma/sqrt(n)) ~ N(0, 1)
+
+CI - MEAN UNKNOWN POPULATION VARIANCE:
+
+CI_(1 - alpha) miu = [xbar -+ t_(n-1); alpha/2 * sigma / sqrt(n) ]
+
+T = (xbar - miu) / (sigma/sqrt(n)) ~ t_(n-1)
+
+CI - PROPORTION, LARGE SAMPLE:
+
+CI_(1 - alpha) p = [phat -+ z_alpha/2 * sqrt((phat* 1-phat)/n)]
+
+Z = (phat - p) / sqrt(p*(1-p)/n) ~ N(0, 1)
+
+Assumptions:
+
+Large sample: n*phat(1 - phat) > 5
+
+CI _ DIFFERENCE BETWEEN MEANS - PAIRED SAMPLES:
+
+//KNOWN VARIANCE
+
+CI_(1-alpha) (miu_x - miu_y) = [dhat -+ z_alpha/2 * sqrt(sigma_d ^ 2/n)]
+
+=CI_(1-alpha) (miu_x - miu_y) = dhat -+ z_alpha/2 * sqrt((sigma_x^2 + sigma_y^2 -
+2sigma_xy)/n)
+
+* Recall that covariance(sigma_xy) = r_xy * s_x * s_y
+
+//UNKNOWN VARIANCE
+
+CI_(1-alpha) (miu_x - miu_y) = [dhat -+ t_(n-1), alpha/2 * sqrt(s_d ^ 2/n)]
+
+=CI_(1-alpha) (miu_x - miu_y) = dhat -+ t_(n-1), alpha/2 * sqrt((s_x^2 + s_y^2 - 2s_xy)/n)
+
+Assumptions: Joint normality (small samples) or large samples
+
+CI _ DIFFERENCE BETWEEN MEANS - INDEPENDENT SAMPLES
+
+//KNOWN VARIANCE
+
+CI_(1-alpha) (miu_x - miu_y) = (xhat - yhat) -+ z_alpha/2 * sqrt((sigma_x^2/n_x) + (sigma_y^2
+/n_y))
+
+//UNKNOWN VARIANCE ASSUMED EQUAL
+
+CI_(1-alpha) (miu_x - miu_y) = (xhat - yhat) -+ t_(n_x + n_y -2), alpha/2 * sqrt((s_pool^2/n_x) +
+(s_pool^2 /n_y))
+
+With s^2_pool = ((n_x -1) * s^2_x + (n_y - 1) * s^2_x) / (n_x + n_y - 2)
+
+//UNKNOWN VARIANCE ASSUMED DIFFERENT
+
+Only with R. standard error = sqrt((s_x^2/n_x) + (s_y^2 /n_y))
+
+CI - DIFFERENCE BETWEEN PROPORTIONS
+
+CI_(1 - alpha) p_x - p_y = [(phat_x - phat_y) -+ z_alpha/2 * sqrt((phat_x* 1-phat_x)/n_x) +
+(phat_y* 1-phat_y)/n_y))]
+
+SAMPLE SIZE DETERMINATION
+
+First case: Mean with known variancen>= ((z_alpha/2)^2 * sigma^2)/ ME^2
+
+Recall that: CI = 2ME
+
+Second case: proportion with large sample size
+
+n>= ((z_alpha/2)^2 * 0.5^2)/ ME^2
+
+***HYPOTHESIS TESTING***
+
+SIGNIFICANCE LEVEL OF A TEST:
+
+The significance level of a test represents the maximum probability of committing a type 1 error
+when we take a decision based on such test. Indeed, remember that alpha quantifies the
+maximum probability of rejecting the null hypothesis when it is true.
+
+POWER OF A TEST:
+
+Correctly rejecting the null hypothesis when the alternative hypothesis is true: 1 - beta
+Beta being the probability of a type two error.
+
+PROBABILITIES OF TYPE I AND TYPE II ERRORS:
+
+In the case of a one-sided right-tailed test:
+
+alpha_* = Pr(xbar > xbar* | miu = miu0)
+
+beta_* = Pr(xbar <= xbar* | miu = miu1)
+
+Remember that there is a trade-off between the two errors.
+
+P-VALUE DEFINITION:
+The smallest significance level at which H0 would be rejected.
+AND/OR
+The probability of obtaining a test statistic as extreme or more extreme than the observed test
+statistic under the null hypothesis and in the direction of the alternative hypothesis.
+
+HYPOTHESIS TESTS:Recall that they all take the form (xbar - miu_0) / se
+The standard errors are found in the following way:
+
+* for two tailed tests multiply by 2 the probability to find the p-value
+TEST FOR THE DIFFERENCE BETWEEN PROPORTIONS (unique):
+
+Pooled estimation is used to test the common proportion: phat_0 = (n_x * phat_x) + (n_y *
+phat_y) / (n_x + n_y) - since p_0 is not known, it must be estimated.
+
+Standard error: sqrt((phat_0 * (1-phat_0)/ n_x) + (phat_0 * (1-phat_0)/ n_y))
+
+GOODNESS OF FIT AND INDEPENDENCE TEST
+
+Goodness of fit:
+
+Sigma from k= 1 to K of (O_k - E_k)^2 / E_k ~ X^2 (K-1)
+
+Independence test:
+
+Sigma from i=1 to r, sigma from j=1 to c of (O_ij - E_ij)^2 / E_ij ~ X^2 ((r-1)*(c-1))***SIMPLE LINEAR REGRESSION***
+
+WEAK ASSUMPTIONS:
+
+E(e_i) = 0, Var(e_i) = sigma^2_e for each i, Cor(e_i, e_h) = 0 for each i, h.
+
+STRONG ASSUMPTIONS:
+
+Weak assumptions + the error e has normal distribution: e_i ~ N(0, sigma^2_e)
+
+Under the normality hypothesis, non-correlation implies independence. Thus under strong
+assumptions Y_i are independent and normally distributed. The residuals are not only
+uncorrelated but also independent.
+
+ESTIMATOR PROPERTIES:
+
+They are linear combinations of the (random) sample observations on the dependent
+variable
+
+Under the weak assumptions the estimators:
+
+- Are unbiased for the corresponding model parameters in the population
+
+- Have variance that tends to zero as the sample size increases and depends on the
+sample observations and also on the variance of the errors, sigma^2.
+
+Under the strong assumptions the estimators have a normal distribution
+
+- It is therefore possible to make inference on the parameters of the linear model in the
+population
+
+SSE:
+
+Sigma from i = 1 to n, of (y_i - yhat*_i)^2 = (y_i - b*0-b1*x_i)^2
+
+SSE = (1-R^2) * SST = (1-R^2) * (n-1) * s^2_y
+
+* Recall that SST = (n-1) * s^2_y
+
+s^2_e (AKA VARIANCE OF THE MODELl):
+
+s^2_e = SSE/(n-2)
+
+SSE = (1-R^2)* SST = (1-R^2)* (n - 1) * s^2_yESTIMATING b1:
+
+b_1 = s_xy / s^2_x = r_xy * s_y / s_x
+
+s^2x = n /(n-1) * SIGMA(x^2_i/n - xbar^2) = 1/n * SIGMA (x_i - xbar)^2 *could be (n-1) if s^2_x
+
+S_xy = ((x_i - xbar) * (y_i - ybar)) / n
+
+s_xy = r_xy * s_x * s_y
+
+ESTIMATING b0:
+
+b0 = ybar - b1*xbar
+
+FINDING R^2:
+
+R^2 = SSR/SST = 1 - SSE/SST
+
+In the case you have one x, R^2 = r^2_xy
+
+R_xy = s_xy / (s_x * s_y) Clearly: R_xy^2 = s_xy^2 / (s_x^2 * s_y^2) * use in simple regr
+
+STANDARD ERROR OF b0:
+
+se(b0) = sqrt(s^2_e *(1/n + (xbar^2/(n-1)*s^2_x)))
+
+STANDARD ERROR OF b1:
+
+se(b1) = sqrt(s^2_e / ((n-1) * s2.x))
+
+CONFIDENCE INTERVAL OF b1:
+
+[b_1 -+ t_n-2; alpha/2 * sqrt(s^2_e / (n-1) * s2.x)]
+
+REJECTING THE NULL HYPOTHESIS (B1 = B^0_1):
+
+It is usually assumed that B^0_1 = 0
+
+B1 < B^0_1 -> Reject null hypothesis (B1 = 0) if: t.obs < t_n-2, alpha/2B1 != B^0_1 -> Reject null hypothesis (B1 = 0) if: |t.obs| > t_n-2, alpha/2
+
+B1 > B^0_1 -> Reject null hypothesis (B1 = 0) if: t.obs > t_n-2, alpha/2
+
+t.obs = (b1 - B^0_1) / (s.e * sqrt(1/(n-1)* (s^2.x))) Or given by R
+
+CONFIDENCE INTERVAL FOR miu_g = B_0 + B_1 * x_g:
+
+[yhat -+ t_n-2; alpha/2 * s_e* sqrt( 1/n + (x_g - xbar)^2/(n-1) * s2.x)]
+
+PREDICTION INTERVAL FOR Y_g
+
+[yhat -+ t_n-2; alpha/2 * s_e* sqrt(1+ 1/n + (x_g - xbar)^2/(n-1) * s2.x)]
+
+(The prediction includes indeed both the uncertainty due to the estimation of the expected value
+as well as the uncertainty related to the deviation of the individual values from the expected
+value.)
+
+***MULTIPLE LINEAR REGRESSION***
+
+F-STATISTIC:
+
+F = (SSR/K) / (SSE/(n - K - 1))
+
+ADJUSTED R^2:
+
+1 - (SSE/(n - K - 1)) / SST/(n - 1) = 1 - (s^2_e / s^2_Y)
+
+s^2_e:
+
+SSE/ (n-K-1)
+
+GLOBAL SIGNIFICANCE:
+
+The global significance of the model refers to the statistical test with null hypothesis that all
+coefficients of the model are zero against the alternative that at least one coefficient is non-zero.
+
+MULTICOLLINEARITY:leads to the erroneous acceptance of the null hypothesis.
+
+
 When describing a graph:
 
 Comment on: central tendency measure, non-central position measures,
